@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from driver import driver
+from features.steps.navigation.navigation_page import NavigationPage
 
 load_dotenv()
 
@@ -13,6 +14,7 @@ def before_all(context):
     context.BASE_URL = os.getenv("BASE_URL")
     context.API_KEY = os.getenv("API_KEY")
     context.API_TOKEN = os.getenv("API_TOKEN")
+    context.navigation = NavigationPage(context)
 
 
 def after_all(context):

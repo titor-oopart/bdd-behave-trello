@@ -4,3 +4,6 @@ Feature: Behave test
     Given steps 1
     When steps 2
     Then steps 3
+
+  Scenario: Navigation example
+    Given I am in login page

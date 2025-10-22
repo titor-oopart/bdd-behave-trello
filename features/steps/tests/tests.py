@@ -1,11 +1,13 @@
 from behave import given, when, then
 from utils.common import find_element
 from features.steps.tests import locators as loc
+from features.steps.navigation.navigation_page import NavigationPage
 
 
 @given("steps 1")
 def step_impl1(context):
-    context.driver.get(context.BASE_URL)
+    nav = NavigationPage(context)
+    nav.go_to(" ")
     find_element(context, loc.example_css)
 
 

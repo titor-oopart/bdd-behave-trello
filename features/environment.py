@@ -12,6 +12,7 @@ def before_all(context):
     context.USER_NAME = os.getenv("USER_NAME")
     context.USER_PASSWORD = os.getenv("USER_PASSWORD")
     context.BASE_URL = os.getenv("BASE_URL")
+    context.API_URL = os.getenv("API_URL")
     context.API_KEY = os.getenv("API_KEY")
     context.API_TOKEN = os.getenv("API_TOKEN")
     context.navigation = NavigationPage(context)

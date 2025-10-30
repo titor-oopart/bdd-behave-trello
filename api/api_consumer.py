@@ -4,9 +4,9 @@ from requests import Request, Session
 class ApiConsumer:
     __instance = None
 
-    def __init__(self, base_url, api_key, token):
+    def __init__(self, api_url, api_key, token):
         self.session = Session()
-        self.base_url = base_url
+        self.api_url = api_url
         self.api_key = api_key
         self.token = token
         self.session.headers.update({"Accept": "application/json"})
@@ -15,7 +15,7 @@ class ApiConsumer:
     def get_instance(cls, context):
         if cls.__instance == None:
             cls.__instance = cls(
-                base_url=context.BASE_URL,
+                api_url=context.API_URL,
                 api_key=context.API_KEY,
                 token=context.API_TOKEN,
             )
@@ -28,7 +28,7 @@ class ApiConsumer:
         params["token"] = self.token
         print(method, params, data)
         req = Request(
-            url=f"{self.base_url.rstrip('/')}/{endpoint.lstrip('/')}",
+            url=f"{self.api_url.rstrip('/')}/{endpoint.lstrip('/')}",
             method=method,
             params=params,
             data=data,

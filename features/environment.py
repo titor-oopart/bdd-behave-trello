@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from driver import driver
+from driver.driver_factory import DriverFactory
 from features.steps.navigation.navigation_page import NavigationPage
 import logging
 
@@ -17,8 +18,10 @@ def before_all(context):
     )
     logger = logging.getLogger(__name__)
 
-    context.driver = driver.get_driver()
-    context.driver.fullscreen_window()
+    browser = os.getenv("BROWSER")
+    is_headless = os.getenv("HEADLESS")
+    windows_size = os.getenv("WINDOW_SIZE")
+    context.driver = DriverFactory.get_driver(browser, is_headless, windows_size)
     context.USER_NAME = os.getenv("USER_NAME")
     context.USER_PASSWORD = os.getenv("USER_PASSWORD")
     context.BASE_URL = os.getenv("BASE_URL")

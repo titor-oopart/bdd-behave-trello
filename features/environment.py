@@ -1,6 +1,7 @@
 import os
+import datetime
+import allure
 from dotenv import load_dotenv
-from driver import driver
 from driver.driver_factory import DriverFactory
 from features.steps.navigation.navigation_page import NavigationPage
 import logging
@@ -37,3 +38,16 @@ def before_all(context):
 def after_all(context):
     context.driver.close()
     context.logger.info("=== Test session finished ===")
+
+
+def after_step(context, step):
+    if step.status == "failed":
+        name = f"{context.scenario.name} - {step.name}_{int(datetime.datetime.now().timestamp())}.png"
+        os.makedirs(os.path.join("screenshot", os.path.dirname(name)), exist_ok=True)
+        path = os.path.join("screenshot", name)
+        context.driver.save_screenshot(path)
+        allure.attach.file(
+            path,
+            name=name,
+            attachment_type=allure.attachment_type.PNG,
+        )

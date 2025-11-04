@@ -9,3 +9,7 @@ avatar_email_text = (
     By.CSS_SELECTOR,
     '[data-testid="account-menu-account-section"] div[class="RpQsLvDvZmhbBg"]',
 )
+account_menu = (By.CSS_SELECTOR, '[data-testid="account-menu"]')
+logout_button = (By.CSS_SELECTOR, '[data-testid="account-menu-logout"]')
+logout_sumbit = (By.ID, "logout-submit")
+login_button = (By.CSS_SELECTOR, '[data-uuid$="_login"]')

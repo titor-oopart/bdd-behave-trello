@@ -3,6 +3,7 @@ from utils.common import (
     get_element_text,
     set_element_text,
     click_element,
+    is_element_visible,
 )
 
 import features.steps.login.login_locators as loc
@@ -26,3 +27,14 @@ class LoginPage:
 
     def home_page_elements_validation(self):
         find_element(self.context, loc.trello_logo)
+
+    def logout(self):
+        if is_element_visible(self.context, loc.account_menu):
+            click_element(self.context, loc.logout_button)
+        else:
+            click_element(self.context, loc.user_avatar)
+            click_element(self.context, loc.logout_button)
+        click_element(self.context, loc.logout_sumbit)
+
+    def logout_validation(self):
+        is_element_visible(self.context, loc.login_button)

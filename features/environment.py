@@ -1,10 +1,20 @@
 import os
 import datetime
 import allure
+import logging
 from dotenv import load_dotenv
 from driver.driver_factory import DriverFactory
 from features.steps.navigation.navigation_page import NavigationPage
-import logging
+from features.hooks.hooks_driver import HOOK_REGISTRY
+
+import importlib
+import pkgutil
+import features.hooks
+
+for modules_names in pkgutil.iter_modules(features.hooks.__path__):
+    module_name = modules_names[1]
+    importlib.import_module(f"features.hooks.{module_name}")
+
 
 load_dotenv()
 
@@ -51,3 +61,15 @@ def after_step(context, step):
             name=name,
             attachment_type=allure.attachment_type.PNG,
         )
+
+
+def before_tag(context, tag):
+    hook = HOOK_REGISTRY["before"].get(tag)
+    if hook:
+        hook(context)
+
+
+def after_tag(context, tag):
+    hook = HOOK_REGISTRY["after"].get(tag)
+    if hook:
+        hook(context)

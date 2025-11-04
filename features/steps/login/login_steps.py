@@ -1,19 +1,23 @@
 from behave import given, when, then
 
-from features.steps.navigation.navigation_page import NavigationPage
 from features.steps.login.login_page import LoginPage
-
-
-@given("I am on login page")
-def redirect_login_page(context):
-    nav = NavigationPage(context)
-    nav.go_to("/login")
 
 
 @when("I ingress credentials")
 def fill_credentials(context):
     context.login_page = LoginPage(context)
     context.login_page.fill_credentials_login()
+
+
+@when("I logout")
+def logout(context):
+    context.login_page = LoginPage(context)
+    context.login_page.logout()
+
+
+@then("I should see the landing page")
+def logout_validation(context):
+    context.login_page.logout_validation()
 
 
 @then("I can see the user on home page")

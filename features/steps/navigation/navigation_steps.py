@@ -1,6 +1,9 @@
 from behave import given
 
+from features.steps.navigation.navigation_page import NavigationPage
 
-@given("I am in login page")
-def go_to_login_page(context):
-    context.navigation.go_to("login")
+
+@given('I am on "{path}" page')
+def go_to_login_page(context, path):
+    nav = NavigationPage(context)
+    nav.go_to(path)

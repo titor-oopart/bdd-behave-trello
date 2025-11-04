@@ -33,3 +33,13 @@ def set_element_text(context, locator, text_value, time=10):
 def get_element_text(context, locator, time=10):
     element = find_element(context, locator, time)
     return element.text
+
+
+def is_element_visible(context, locator, time=1):
+    try:
+        WebDriverWait(context.driver, time).until(
+            EC.visibility_of_element_located(locator)
+        )
+        return True
+    except TimeoutException:
+        return False
